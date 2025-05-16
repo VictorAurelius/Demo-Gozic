@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: html}">
+<head>
+    <th:block th:fragment="styles">
+        <style>
+            main {
+                background-color: #f8f9fa;
+                min-height: 80vh;
+                padding: 20px;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 400px;
+                border-radius: 5px;
+                text-align: center;
+                position: relative;
+            }
+            .close-modal {
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            .modal-title {
+                color: #28a745;
+                margin-bottom: 15px;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+    <th:block th:fragment="content">
+        <main>
+            <div class="auth-container">
+                <h2 class="auth-title">Đăng nhập</h2>
+                
+                <div th:if="${param.error}" class="error-message text-center mb-3">
+                    Tên đăng nhập hoặc mật khẩu không đúng
+                </div>
+                
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" 
+                               id="username" 
+                               name="username" 
+                               class="form-control" 
+                               required 
+                               autofocus>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" 
+                               id="password" 
+                               name="password" 
+                               class="form-control" 
+                               required>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth">Đăng nhập</button>
+                </form>
+                
+                <div class="auth-links">
+                    <p>Chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay</a></p>
+                    <p><a th:href="@{/forgot-password}">Quên mật khẩu?</a></p>
+                </div>
+            </div>
+
+            <!-- Registration Success Modal -->
+            <div id="registrationModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3 class="modal-title">Đăng ký thành công!</h3>
+                    <p>Tài khoản của bạn đã được tạo thành công.</p>
+                    <p>Vui lòng đăng nhập để tiếp tục.</p>
+                </div>
+            </div>
+
+            <!-- Login Success Modal -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3 class="modal-title">Đăng nhập thành công!</h3>
+                    <p>Chào mừng bạn đã quay trở lại.</p>
+                </div>
+            </div>
+
+            <!-- Password Reset Success Modal -->
+            <div id="passwordResetModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3 class="modal-title">Đặt lại mật khẩu thành công!</h3>
+                    <p>Mật khẩu của bạn đã được cập nhật.</p>
+                    <p>Vui lòng đăng nhập với mật khẩu mới.</p>
+                </div>
+            </div>
+        </main>
+    </th:block>
+
+    <th:block th:fragment="scripts">
+        <script>
+            // Show modals based on conditions
+            if ([[${registrationSuccess}]]) {
+                document.getElementById('registrationModal').style.display = 'block';
+            }
+            if ([[${loginSuccess}]]) {
+                document.getElementById('loginModal').style.display = 'block';
+                // Redirect to home page after showing the modal
+                setTimeout(function() {
+                    window.location.href = '/';
+                }, 2000);
+            }
+            if ([[${passwordReset}]]) {
+                document.getElementById('passwordResetModal').style.display = 'block';
+            }
+
+            // Close modal functionality
+            document.querySelectorAll('.close-modal').forEach(function(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+        </script>
+    </th:block>
+</body>
+</html>

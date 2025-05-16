@@ -1,29 +1,87 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/main :: html(
-        content=~{::main},
-        styles=~{::style},
-        scripts=~{::script}
-      )}">
+      th:replace="~{layout/main :: html}">
 <head>
-    <style>
-        /* Add any page-specific styles here */
-        .welcome-section {
-            text-align: center;
-            padding: 50px 20px;
-        }
-    </style>
+    <th:block th:fragment="styles">
+        <style>
+            main {
+                padding: 20px;
+                min-height: 80vh;
+            }
+            .welcome-section {
+                text-align: center;
+                padding: 50px 20px;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 400px;
+                border-radius: 5px;
+                text-align: center;
+                position: relative;
+            }
+            .close-modal {
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            .modal-title {
+                color: #28a745;
+                margin-bottom: 15px;
+            }
+        </style>
+    </th:block>
 </head>
 <body>
-    <main>
-        <div class="welcome-section">
-            <h1>Welcome to Gozic</h1>
-            <p>Find your perfect style with us!</p>
-        </div>
-    </main>
-    
-    <script>
-        // Add any page-specific JavaScript here
-    </script>
+    <th:block th:fragment="content">
+        <main>
+            <div class="welcome-section">
+                <h1>Welcome to Gozic</h1>
+                <p>Find your perfect style with us!</p>
+            </div>
+
+            <!-- Login Success Modal -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3 class="modal-title">Đăng nhập thành công!</h3>
+                    <p>Chào mừng bạn đã quay trở lại.</p>
+                </div>
+            </div>
+        </main>
+    </th:block>
+
+    <th:block th:fragment="scripts">
+        <script th:if="${loginSuccess}">
+            document.getElementById('loginModal').style.display = 'block';
+            
+            // Close modal functionality
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('loginModal').style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+        </script>
+    </th:block>
 </body>
 </html>

@@ -8,27 +8,24 @@
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
-    <!-- Additional CSS block for child templates -->
-    <th:block th:replace="${styles}" />
+    <!-- Insert page specific styles -->
+    <th:block th:insert=":: styles"></th:block>
 </head>
 <body>
     <!-- Header Fragment -->
     <div th:replace="~{fragments/header :: header}"></div>
     
-    <!-- Main Content -->
-    <main>
-        <div th:replace="${content}">
-            <!-- Content will be replaced here -->
-        </div>
-    </main>
+    <!-- Insert page specific content -->
+    <th:block th:insert=":: content"></th:block>
 
     <!-- Footer Fragment -->
     <div th:replace="~{fragments/footer :: footer}"></div>
     
-    <!-- Additional JavaScript block for child templates -->
-    <th:block th:replace="${scripts}" />
+    <!-- Insert page specific scripts -->
+    <th:block th:insert=":: scripts"></th:block>
 </body>
 </html>

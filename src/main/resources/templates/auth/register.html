@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: html(
+        content=~{::main},
+        styles=~{::style},
+        scripts=~{::script}
+      )}">
+<head>
+    <style>
+        /* Page-specific styles */
+        main {
+            background-color: #f8f9fa;
+            min-height: 80vh;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="auth-container">
+            <h2 class="auth-title">Đăng ký tài khoản</h2>
+            
+            <div th:if="${error}" class="error-message text-center mb-3" th:text="${error}">
+            </div>
+            
+            <form th:action="@{/register}" method="post">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" 
+                           id="username" 
+                           name="username" 
+                           class="form-control" 
+                           required 
+                           autofocus>
+                    <div th:if="${errors?.username}" class="error-message" th:text="${errors.username}"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" 
+                           id="email" 
+                           name="email" 
+                           class="form-control" 
+                           required>
+                    <div th:if="${errors?.email}" class="error-message" th:text="${errors.email}"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           class="form-control" 
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                    <input type="password" 
+                           id="confirmPassword" 
+                           name="confirmPassword" 
+                           class="form-control" 
+                           required>
+                </div>
+                
+                <button type="submit" class="btn-auth">Đăng ký</button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Client-side password validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Mật khẩu xác nhận không khớp!');
+            }
+        });
+    </script>
+</body>
+</html>
