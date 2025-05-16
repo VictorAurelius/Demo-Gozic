@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main}">
+<head>
+    <th:block th:fragment="style">
+        <link rel="stylesheet" th:href="@{/css/about.css}">
+    </th:block>
+</head>
+<body>
+    <th:block th:fragment="main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <img class="hero-image" th:src="@{/image/logo/logo3.jpg}" alt="VPS Fashion Family">
+            <div class="hero-caption">
+                VPS_Fashion - Khoác Lên Mình Niềm Vui Gia Đình Việt
+            </div>
+        </section>
+
+        <!-- Brand Introduction Section -->
+        <section class="brand-section">
+            <img class="brand-image" th:src="@{/image/logo/logo2.jpg}" alt="VPS Fashion Family in Red">
+            <div class="brand-content">
+                <div class="brand-logo">VPS-FASHION</div>
+                <h1 class="brand-title">VPS_Fashion 2 năm – Khoác lên niềm vui gia đình Việt</h1>
+                <p class="brand-description">
+                    Năm 2021, Công ty Cổ phần Thương mại và Dịch vụ Hoàng Dương được thành lập với mục đích chính ban đầu 
+                    là hoạt động trong lĩnh vực sản xuất hàng thời trang xuất khẩu với các sản phẩm chủ yếu làm từ len và sợi. 
+                    Năm 2022 thương hiệu thời trang VPS-Fashion ra đời, tự hào trở thành một cột mốc đáng nhớ của doanh nghiệp 
+                    Việt trong ngành thời trang.
+                </p>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="mission-container">
+                <div class="mission-content">
+                    <p class="mission-text">
+                        VPS-Fashion hướng đến mục tiêu mang lại niềm vui mặc mỗi ngày cho hàng triệu người tiêu dùng Việt. 
+                        Chúng tôi tin rằng người dân Việt Nam cũng đang hướng đến một cuộc sống năng động, tích cực hơn.
+                    </p>
+                    <a href="#" class="cta-button">XEM THÊM</a>
+                </div>
+                <img class="mission-image" th:src="@{/image/logo/logo1.jpg}" alt="VPS Fashion Mission">
+            </div>
+        </section>
+    </th:block>
+
+    <th:block th:fragment="script">
+    </th:block>
+</body>
+</html>
