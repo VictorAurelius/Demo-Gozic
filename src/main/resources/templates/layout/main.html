@@ -12,20 +12,23 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
-    <!-- Insert page specific styles -->
-    <th:block th:insert=":: styles"></th:block>
+    <!-- Page specific styles -->
+    <th:block th:replace="~{:: styles}">
+    </th:block>
 </head>
 <body>
     <!-- Header Fragment -->
     <div th:replace="~{fragments/header :: header}"></div>
     
-    <!-- Insert page specific content -->
-    <th:block th:insert=":: content"></th:block>
+    <!-- Page specific content -->
+    <th:block th:replace="~{:: content}">
+    </th:block>
 
     <!-- Footer Fragment -->
     <div th:replace="~{fragments/footer :: footer}"></div>
     
-    <!-- Insert page specific scripts -->
-    <th:block th:insert=":: scripts"></th:block>
+    <!-- Page specific scripts -->
+    <th:block th:replace="~{:: scripts}">
+    </th:block>
 </body>
 </html>
