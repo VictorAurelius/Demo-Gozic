@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: html(
+        content=~{::main},
+        styles=~{::style},
+        scripts=~{::script}
+      )}">
+<head>
+    <style>
+        /* Add any page-specific styles here */
+        .welcome-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="welcome-section">
+            <h1>Welcome to Gozic</h1>
+            <p>Find your perfect style with us!</p>
+        </div>
+    </main>
+    
+    <script>
+        // Add any page-specific JavaScript here
+    </script>
+</body>
+</html>
