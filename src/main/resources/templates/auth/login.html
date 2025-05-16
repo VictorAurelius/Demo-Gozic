@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/main :: html}">
+      th:replace="~{layout/main}">
 <head>
-    <th:block th:fragment="styles">
+    <th:block th:fragment="style">
         <style>
             main {
                 background-color: #f8f9fa;
@@ -45,7 +45,7 @@
     </th:block>
 </head>
 <body>
-    <th:block th:fragment="content">
+    <th:block th:fragment="main">
         <main>
             <div class="auth-container">
                 <h2 class="auth-title">Đăng nhập</h2>
@@ -93,15 +93,6 @@
                 </div>
             </div>
 
-            <!-- Login Success Modal -->
-            <div id="loginModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h3 class="modal-title">Đăng nhập thành công!</h3>
-                    <p>Chào mừng bạn đã quay trở lại.</p>
-                </div>
-            </div>
-
             <!-- Password Reset Success Modal -->
             <div id="passwordResetModal" class="modal">
                 <div class="modal-content">
@@ -114,18 +105,10 @@
         </main>
     </th:block>
 
-    <th:block th:fragment="scripts">
+    <th:block th:fragment="script">
         <script>
-            // Show modals based on conditions
             if ([[${registrationSuccess}]]) {
                 document.getElementById('registrationModal').style.display = 'block';
-            }
-            if ([[${loginSuccess}]]) {
-                document.getElementById('loginModal').style.display = 'block';
-                // Redirect to home page after showing the modal
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 2000);
             }
             if ([[${passwordReset}]]) {
                 document.getElementById('passwordResetModal').style.display = 'block';

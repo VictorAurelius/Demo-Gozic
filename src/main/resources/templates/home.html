@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout/main :: html}">
+      th:replace="~{layout/main}">
 <head>
-    <th:block th:fragment="styles">
+    <th:block th:fragment="style">
         <style>
             main {
                 padding: 20px;
@@ -29,17 +29,24 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 transition: transform 0.3s;
                 overflow: hidden;
+                height: 500px;
+                display: flex;
+                flex-direction: column;
             }
             .product-card:hover {
                 transform: translateY(-5px);
             }
             .product-image {
                 width: 100%;
-                height: 250px;
+                height: 400px;
                 object-fit: cover;
             }
             .product-info {
                 padding: 15px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }
             .product-name {
                 font-size: 16px;
@@ -50,6 +57,58 @@
                 font-weight: bold;
                 color: #1a237e;
             }
+            .view-more-section {
+                text-align: center;
+                margin: 40px 0;
+            }
+            .view-more-btn {
+                background-color: #1a237e;
+                color: white;
+                border: none;
+                padding: 12px 30px;
+                border-radius: 25px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            .view-more-btn:hover {
+                background-color: #151b60;
+            }
+            .hidden {
+                display: none;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                max-width: 400px;
+                border-radius: 5px;
+                text-align: center;
+                position: relative;
+            }
+            .close-modal {
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            .modal-title {
+                color: #28a745;
+                margin-bottom: 15px;
+            }
             @media (max-width: 992px) {
                 .products-grid {
                     grid-template-columns: repeat(3, 1fr);
@@ -58,6 +117,12 @@
             @media (max-width: 768px) {
                 .products-grid {
                     grid-template-columns: repeat(2, 1fr);
+                }
+                .product-card {
+                    height: 450px;
+                }
+                .product-image {
+                    height: 350px;
                 }
             }
             @media (max-width: 576px) {
@@ -69,7 +134,7 @@
     </th:block>
 </head>
 <body>
-    <th:block th:fragment="content">
+    <th:block th:fragment="main">
         <main>
             <!-- Men's Section -->
             <section class="category-section" th:if="${not #lists.isEmpty(menClothes)}">
@@ -113,8 +178,13 @@
                 </div>
             </section>
 
-            <!-- Girls' Section -->
-            <section class="category-section" th:if="${not #lists.isEmpty(girlsClothes)}">
+            <!-- View More Button -->
+            <div class="view-more-section">
+                <button id="viewMoreBtn" class="view-more-btn">Xem thêm</button>
+            </div>
+
+            <!-- Girls' Section (Hidden initially) -->
+            <section id="girlsSection" class="category-section hidden" th:if="${not #lists.isEmpty(girlsClothes)}">
                 <h2 class="category-title">Đồ Bé Gái</h2>
                 <div class="products-grid">
                     <div class="product-card" th:each="clothes : ${girlsClothes}">
@@ -138,7 +208,7 @@
         </main>
     </th:block>
 
-    <th:block th:fragment="scripts">
+    <th:block th:fragment="script">
         <script th:if="${loginSuccess}">
             document.getElementById('loginModal').style.display = 'block';
             
@@ -152,6 +222,19 @@
                 if (event.target.classList.contains('modal')) {
                     event.target.style.display = 'none';
                 }
+            });
+        </script>
+
+        <script>
+            document.getElementById('viewMoreBtn').addEventListener('click', function() {
+                const girlsSection = document.getElementById('girlsSection');
+                const viewMoreBtn = document.getElementById('viewMoreBtn');
+                
+                girlsSection.classList.remove('hidden');
+                viewMoreBtn.style.display = 'none';
+                
+                // Smooth scroll to girls section
+                girlsSection.scrollIntoView({ behavior: 'smooth' });
             });
         </script>
     </th:block>

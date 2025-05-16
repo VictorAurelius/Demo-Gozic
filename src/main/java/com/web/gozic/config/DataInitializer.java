@@ -91,7 +91,9 @@ public class DataInitializer implements CommandLineRunner {
             case "donu":
                 return "women";
             case "dotreem":
-                return "children";
+                return "boys";
+            case "dotreemnu":
+                return "girls";
             default:
                 return "other";
         }
